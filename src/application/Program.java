@@ -3,16 +3,19 @@ package application;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.Instant;
-import java.util.Date;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
-import java.util.Set;
+
+import entities.Product;
 
 public class Program {
 
 	public static void main(String[] args) {
-
+		Locale.setDefault(Locale.US);
+		List<Product> list = new ArrayList<>();
 		try (Scanner sc = new Scanner(System.in)) {
 			System.out.println("Enter file full path: ");
 			String path = sc.nextLine();
@@ -20,11 +23,14 @@ public class Program {
 
 				String line = br.readLine();
 				while (line != null) {
+					String [] fields = line.split(",");
+					list.add(new Product (fields[0],Double.parseDouble(fields[1])));
 					line = br.readLine();
 				}
 			}
 		} catch (IOException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
+		System.out.println(Arrays.toString(list.toArray()));
 	}
 }
